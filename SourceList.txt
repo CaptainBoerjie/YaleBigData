@@ -1,0 +1,68 @@
+Algeria,https://www.elkhabar.com,RSS-BeautifulSoup
+Algeria,http://www.elheddaf.com,RSS-Newspaper
+Bahrain,https://www.bna.bh,RSS-Newspaper
+Bahrain,http://www.alayam.com,RSS-Newspaper
+Bahrain,http://www.alwasatnews.com,RSS-Newspaper
+Bahrain,http://alwatannews.net,RSS-Newspaper
+Egypt,https://alwafd.news,Selenium-BeautifulSoup(RSS+Newspaper works)
+Egypt,https://www.almasryalyoum.com,RSS-BeautifulSoup
+Egypt,http://www.khabarmasr.com,Selenium-BeautifulSoup
+Egypt,https://www.masrawy.com,RSS-BeautifulSoup
+Egypt,https://www.egypt-today.com,RSS-Newspaper
+Iraq,https://www.azzaman.com,RSS-Readability
+Iraq,https://almadapaper.net,RSS-Readability
+Iraq,http://newsabah.com,RSS-Newspaper
+Jordan,http://alrai.com,RSS-BeautifulSoup
+Jordan,http://assabeel.net,RSS-BeautifulSoup
+Kuwait,http://www.alraimedia.com,RSS-Readability
+Kuwait,http://alwatan.kuwait.tt,RSS-Newspaper
+Kuwait,https://www.alanba.com.kw,RSS-Newspaper
+Lebanon,http://assafir.com,RSS-Readability
+Lebanon,http://www.al-waie.org/headlines,Newspaper (only)
+Lebanon,https://www.lebanon24.com,RSS-Newspaper
+Lebanon,https://www.onlylebanon.net,RSS-Newspaper
+Libya,https://www.libya-news.com,RSS-Newspaper
+Libya,http://www.akhbarlibya.net,RSS-Newspaper
+Libya,http://ewanlibya.ly,RSS-Newspaper
+Mauritania,https://alakhbar.info,RSS-Newspaper
+Mauritania,http://sahelnews.info,RSS-Newspaper
+Morocco,http://ahdath.info,RSS-Newspaper
+Morocco,http://www.almountakhab.com,RSS-Newspaper
+Morocco,https:/agadir24.info,Selenium-BeautifulSoup
+Morocco,https://www.akhbarona.com,RSS-Readability
+Morocco,http://www.alyaoum24.com,RSS-Newspaper
+Morocco,https://www.maghress.com,RSS-BeautifulSoup
+Oman,http://www.omannews.gov.om,RSS-Readability
+Oman,http://alwatan.com,RSS-Newspaper
+Oman,https://www.shabiba.com,RSS-Readability
+Palestine,http://www.manar.com
+Palestine,http://www.alquds.com
+Qatar,http://www.aljazeera.net
+Qatar,http://www.alarab.qa
+Qatar,http://www.alraya.com
+Qatar,http://www.alkhaleej.ae
+Saudi Arabia,https://www.alarabiya.net
+Saudi Arabia,http://www.aleqt.com
+Saudi Arabia,http://www.al-jazirah.com
+Saudi Arabia,https://www.al-madina.com
+Saudi Arabia,https://www.alyaum.com
+Sudan,https://alsudanalyoum.com
+Sudan,https://www.albawaba.com
+Tunisia,http://alchourouk.com
+Tunisia,http://www.assabah.com.tn
+Tunisia,http://www.lexpertjournal.net
+Tunisia,https://www.turess.com
+Tunisia,http://www.akherkhabaronline.com
+Tunisia,https://www.arrakmia.com
+Tunisia,https://www.nessma.tv
+Tunisia,https://www.mosaiquefm.net
+UAE,https://www.albayan.ae
+UAE,http://twentyfoursevennews.com
+UAE,https://www.emaratalyoum.com
+UAE,http://wam.ae
+UAE,https://www.alittihad.ae
+UAE,https://24.ae
+Yemen,https://www.alayyam.info
+Yemen,http://www.alsahwa-yemen.net
+Yemen,http://www.althawranews.net
+Yemen,http://www.alwahdawi.net
