@@ -1,0 +1,75 @@
+1548212370604	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.02VYR5o1joas"
+*** You are running in headless mode.
+1548212370903	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1548212370903	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+1548212372102	Marionette	INFO	Listening on port 39197
+1548212372109	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://www.khabarmasr.com/news/category/1/1, line 1732: ReferenceError: Blazy is not defined
+JavaScript error: http://www.khabarmasr.com/slider1/scripts.js?v=20161025035725, line 945: TypeError: ALaaQuery(...).masonry is not a function
+JavaScript error: https://www.gstatic.com/recaptcha/api2/v1547447582668/recaptcha__en.js, line 507: Error: reCAPTCHA placeholder element must be an element or id
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:750:13
+
+1548213472019	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.Qxn1i0PSk1rI"
+*** You are running in headless mode.
+1548213472279	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: resource://pdf.js/
+1548213472279	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid host permission: about:reader*
+1548213473437	Marionette	INFO	Listening on port 40785
+1548213473555	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://www.khabarmasr.com/news/category/1/1, line 1732: ReferenceError: Blazy is not defined
+JavaScript error: http://www.khabarmasr.com/slider1/scripts.js?v=20161025035725, line 945: TypeError: ALaaQuery(...).masonry is not a function
+JavaScript error: https://www.gstatic.com/recaptcha/api2/v1547447582668/recaptcha__en.js, line 507: Error: reCAPTCHA placeholder element must be an element or id
+JavaScript error: http://www.khabarmasr.com/news/category/1/2, line 1732: ReferenceError: Blazy is not defined
+JavaScript error: http://www.khabarmasr.com/slider1/scripts.js?v=20161025035725, line 945: TypeError: ALaaQuery(...).masonry is not a function
+JavaScript error: https://www.gstatic.com/recaptcha/api2/v1547447582668/recaptcha__en.js, line 507: Error: reCAPTCHA placeholder element must be an element or id
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:750:13
+
+JavaScript error: http://www.khabarmasr.com/news/category/1/3, line 1732: ReferenceError: Blazy is not defined
+JavaScript error: http://www.khabarmasr.com/slider1/scripts.js?v=20161025035725, line 945: TypeError: ALaaQuery(...).masonry is not a function
+JavaScript error: https://www.gstatic.com/recaptcha/api2/v1547447582668/recaptcha__en.js, line 507: Error: reCAPTCHA placeholder element must be an element or id
+JavaScript error: http://www.khabarmasr.com/news/category/1/4, line 1732: ReferenceError: Blazy is not defined
+JavaScript error: http://www.khabarmasr.com/slider1/scripts.js?v=20161025035725, line 945: TypeError: ALaaQuery(...).masonry is not a function
+JavaScript error: https://www.gstatic.com/recaptcha/api2/v1547447582668/recaptcha__en.js, line 507: Error: reCAPTCHA placeholder element must be an element or id
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:750:13
+
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:750:13
+
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:750:13
+
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:750:13
+
