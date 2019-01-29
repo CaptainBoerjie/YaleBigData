@@ -23,9 +23,8 @@ def convertRSSdate(published,*args):
                 cleanDate = parse(published[:25], fuzzy_with_tokens=True, ignoretz=True)
                 strCleanDate = cleanDate[0].strftime('%Y-%m-%d %H:%M:%S')
             else:
-                today = datetime.now()
-                strCleanDate = today.strftime('%Y-%m-%d %H:%M:%S')
-                print("No usable date, using current date.")
+                strCleanDate = convertRSSdate(convertBSdate(published))
+
         except:
             today = datetime.now()
             strCleanDate = today.strftime('%Y-%m-%d %H:%M:%S')
@@ -62,7 +61,16 @@ def convertBSdate(published,*args):
     ar2eng_words = {'منذ':'ago','قبل':'ago','ساعتين':'2 hours',
         'ساعات':'hours',}
 
-    if string.split()[0] in ar2eng_words.keys():
-        return(' '.join(ar2eng_words.get(i,i) for i in string.split()))
-    elif string.split()[1] in ar2eng_month.keys():
-        return(' '.join(ar2eng_month.get(i,i) for i in string.split()))
+    if published.split()[0] in ar2eng_words.keys():
+        return(' '.join(ar2eng_words.get(i,i) for i in published.split()))
+    elif published.split()[1] in ar2eng_month.keys():
+        return(' '.join(ar2eng_month.get(i,i) for i in published.split()))
+
+
+if __name__ == '__main__':
+
+    test_list = ['1 يناير 2015', 'قبل ساعتين', 'منذ 5 ساعات', 
+        'Fri, 5 Jun 2015 02:14:05 GMT', 'Sat, 26 Jan 2019 12:04:06 +0000']
+
+
+    print(convertRSSdate('الثلاثاء, 29 يناير 2019 20:55 '))
