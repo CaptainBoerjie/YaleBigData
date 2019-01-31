@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 from datetime import datetime
 import pymysql
+import datetimehandler
 
 start_time = datetime.now()
 
@@ -48,7 +49,9 @@ for i in range (2,11):
             print(date)
             print(title)
 
-            params = ('','Al Khabar', 'Algeria', date, title, article, url)
+            push_date = datetimehandler.convertRSSdate(date)
+
+            params = ('','Al Khabar', 'Algeria', push_date, title, article, url)
             sql_insert = """INSERT IGNORE INTO news (news_feed, news_source, news_country, news_date, \
             news_title, news_text, news_link) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
             cursor.execute(sql_insert,params)

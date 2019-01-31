@@ -2092,3 +2092,10 @@ console.error: BroadcastService:
 
 A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
 1548791408193	Marionette	INFO	Stopped listening on port 32899
+[Parent 26646, Gecko_IOThread] WARNING: pipe error (66): Connection reset by peer: file /build/firefox-wWf_B4/firefox-64.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 363
+
+###!!! [Parent][MessageChannel] Error: (msgtype=0x190084,name=PBrowser::Msg_Destroy) Channel error: cannot send/recv
+
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+[Parent 26646, Gecko_IOThread] WARNING: pipe error (65): Connection reset by peer: file /build/firefox-wWf_B4/firefox-64.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 363
+1548917758491	Marionette	INFO	Stopped listening on port 38899
