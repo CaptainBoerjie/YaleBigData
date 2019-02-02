@@ -21,7 +21,7 @@ deadpage_cnt = 0
 db = pymysql.connect("localhost","root","pumpkin","ScrapeDB")
 cursor = db.cursor()
 
-for i in range (2,11):
+for i in range (5711,149940):
     
     target_url = 'http://www.elkhabar.com/press/article/' + str(i) + '/'
     browser.get(target_url)
@@ -39,23 +39,25 @@ for i in range (2,11):
             soup = BeautifulSoup(page, 'lxml')
 
             title_box = soup.find('h2', attrs={'id': 'article_title'})
-            date_box = soup.find('div', attrs={'class': 'subinfo'})
+            date_box = soup.find('time', attrs={'class': 'relative_time'}).get('datetime')
             article_box = soup.find('div', attrs={'id': 'article_body_content'})
 
             title = title_box.text.strip()
-            date = date_box.text.strip()
+            date = date_box.strip()
             article = article_box.text.strip()
-
-            print(date)
-            print(title)
 
             push_date = datetimehandler.convertRSSdate(date)
 
-            params = ('','Al Khabar', 'Algeria', push_date, title, article, url)
+            params = ('http://www.elkhabar.com/press/article/','Al Khabar', 'Algeria', push_date, title, article, target_url)
             sql_insert = """INSERT IGNORE INTO news (news_feed, news_source, news_country, news_date, \
             news_title, news_text, news_link) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
             cursor.execute(sql_insert,params)
             db.commit()
+
+            article_cnt += 1
+
+            print(push_date)
+            print(title)
 
         except:
             deadpage_cnt += 1

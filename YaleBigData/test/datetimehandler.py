@@ -13,6 +13,21 @@ from datetime import datetime
 from dateutil.parser import parse
 
 def convertRSSdate(published,*args):
+
+    # There is a common problem of commas next to Arabic words which are then not 
+    # readable by dateutil.parser or convertBSdate.  These commas must be removed
+    # before translation.  Next, some websites provide both Western and Islamic
+    # months in the date which result in a double (ex: 23 August August 2013)
+    # month which also confuses the dateutil.parser function.
+    
+    # First, remove commas
+    published = ' '.join(published.split(','))
+    # Second, convert any Arabic to English 
+    published = convertBSdate(published)
+    # Third, remove any duplicate words
+    published_split = published.split()
+    published = ' '.join(sorted(set(published_split), key = published_split.index))
+
     try: 
         cleanDate = parse(published, fuzzy_with_tokens=True, ignoretz=True)
         strCleanDate = cleanDate[0].strftime('%Y-%m-%d %H:%M:%S')
@@ -23,7 +38,8 @@ def convertRSSdate(published,*args):
                 cleanDate = parse(published[:25], fuzzy_with_tokens=True, ignoretz=True)
                 strCleanDate = cleanDate[0].strftime('%Y-%m-%d %H:%M:%S')
             else:
-                strCleanDate = convertRSSdate(convertBSdate(published))
+                pass
+                #strCleanDate = convertRSSdate(convertBSdate(published))
 
         except:
             today = datetime.now()
@@ -35,15 +51,14 @@ def convertRSSdate(published,*args):
 
 def convertBSdate(published,*args):
 
-    eng2ar_day = {'Monday': 'الاثنين','Tuesday': 'الاثنين',
-        'Wednesday':'الاثنين', 'Thursday':'الاثنين',
-        'Friday':'الاثنين','Saturday':'الاثنين',
-        'Sunday':'الاثنين'}
-    ar2eng_day = {'الاثنين':'Monday','الاثنين':'Tuesday',
-        'الاثنين':'Wednesday','الاثنين':'Thursday',
-        'الاثنين':'Friday','الاثنين':'Saturday',
-        'الاثنين':'Sunday'}
-    # print(dict['Monday'])
+    eng2ar_day = {'Monday': 'الاثنين','Tuesday': 'الثلاثاء',
+        'Wednesday':'الاربعاء', 'Thursday':'الخميس',
+        'Friday':'الخميس','Saturday':'السبت',
+        'Sunday':'الاحد'}
+    ar2eng_day = {'الاثنين':'Monday','الإثنين':'Monday','الثلاثاء':'Tuesday',
+        'الاربعاء':'Wednesday','الأربعاء':'Wednesday','الخميس':'Thursday',
+        'الخميس':'Friday','السبت':'Saturday',
+        'الاحد':'Sunday','الأحد':'Sunday'}
 
     ar2eng_month = {'يناير':'January','فبراير':'February',
         'مارس':'March','إبريل':'April','أبريل':'April',
@@ -59,12 +74,13 @@ def convertBSdate(published,*args):
         ' تشرين الثاني':'November',' كانون الأول':'December'}
 
     ar2eng_words = {'منذ':'ago','قبل':'ago','ساعتين':'2 hours',
-        'ساعات':'hours',}
+        'ساعات':'hours','م':''}
 
-    if published.split()[0] in ar2eng_words.keys():
-        return(' '.join(ar2eng_words.get(i,i) for i in published.split()))
-    elif published.split()[1] in ar2eng_month.keys():
-        return(' '.join(ar2eng_month.get(i,i) for i in published.split()))
+    published = ' '.join(ar2eng_day.get(i,i) for i in published.split())
+    published = ' '.join(ar2eng_month.get(i,i) for i in published.split())
+    published = ' '.join(ar2eng_words.get(i,i) for i in published.split())
+    
+    return published
 
 
 if __name__ == '__main__':
@@ -73,4 +89,4 @@ if __name__ == '__main__':
         'Fri, 5 Jun 2015 02:14:05 GMT', 'Sat, 26 Jan 2019 12:04:06 +0000']
 
 
-    print(convertRSSdate('الثلاثاء, 29 يناير 2019 20:55 '))
+    print(convertRSSdate('الثلاثاء, 20 آب أغسطس 2013 م '))
