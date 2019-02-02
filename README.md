@@ -18,6 +18,11 @@ Addition efforts:
 - Finalized, for now, the datetimehandler.py which formats the numerous datetimes from sites.
 - Began testing Flask for simple frontside interface
 
+### Issues encountered
+
+- Git is a new tool and the unfamiliarity caused some frustration; most documentation and support on StackOverflow centered around syncing the local repository with the remote and merging remote updates with the local.  Currently, all local changes must take precendence over the remote (GitHub) repository.  "git push -f origin master" is the current method.
+- An ongoing issue, but unavoidable, is the slow speed of Selenium/BeautifulSoup scrapes.  Many websites deny GET requests using the requests package and thus require Selenium.  Executing the scrapes of archived and historic articles is very time consuming: code is still scraping two Algerian news sites (~20,000 articles each, so far) with at least 100k left.
+
 # Primary modules
 
 The following are the primary modules currently employed in the package:
