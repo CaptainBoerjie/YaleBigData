@@ -21,7 +21,7 @@ deadpage_cnt = 0
 db = pymysql.connect("localhost","root","pumpkin","ScrapeDB")
 cursor = db.cursor()
 
-for i in range (16863,139102):
+for i in range (26446,139102):
     
     target_url = 'http://www.elheddaf.com/article/detail?id=' + str(i)
     browser.get(target_url)
@@ -38,7 +38,7 @@ for i in range (16863,139102):
         page = browser.page_source
         soup = BeautifulSoup(page, 'lxml')
 
-        title_box = soup.find('div', attrs={'class': 'right_area'}).find('h1')
+        title_box = soup.find('div', attrs={'id': 'detail_head'}).find('div', attrs={'class': 'right_area'}).find('h1')
         date_box = soup.find('div', attrs={'class': 'post_bare'}).find('span', attrs={'class': 'time'})
         article_box = soup.find('div', attrs={'id': 'post_core'}).find_all('p')
 

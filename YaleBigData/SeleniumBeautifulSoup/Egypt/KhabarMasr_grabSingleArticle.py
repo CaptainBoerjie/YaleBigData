@@ -22,7 +22,8 @@ def grabPage(url):
 
     title = title_box.text.strip()
     date = date_box.text.strip()
-    #article = article_box.strip()
+
+    return [title,date,article]
 
 if __name__ == "__main__":
 
