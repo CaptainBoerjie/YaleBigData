@@ -21,7 +21,7 @@ deadpage_cnt = 0
 db = pymysql.connect("localhost","root","pumpkin","ScrapeDB")
 cursor = db.cursor()
 
-for i in range (15357,149940):
+for i in range (42652,149940):
     
     target_url = 'http://www.elkhabar.com/press/article/' + str(i) + '/'
     browser.get(target_url)

@@ -4,11 +4,13 @@ This is a Big Data project to explore two fields, data science, and Arabic media
 
 # Current Effort
 
-Currently, working through the main sources list (SourceList.txt) to determine best scraping method.  All sources offer RSS feeds, but some require Newspaper3k (very simple), some require BeautifulSoup (source specific code), and some require Selenium and BeautifulSoup because the RSS format is broken.
+<b>Week of 3 Feb - 9 Feb</b>
+- Currently, working through the main sources list (SourceList.txt) to determine best scraping method.  All sources offer RSS feeds, but some require Newspaper3k (very simple), some require BeautifulSoup (source specific code), and some require Selenium and BeautifulSoup because the RSS format is broken.
+- Developing an automated Historic/Archived scraper.  Most of the sources which have iterable article URLs have a <i>sourcename</i>_singleArticleGrab.py file.  The HistoricGrabController.py module will utilize a csv file which holds the available sources with iterable URL's and a min and max numeric article id.  The id number in the URL has a '*' placeholder for easy .split() insertion of the iterated id number.
 
 Addition efforts:
 - Learning how to use relative imports as the package file tree grows and code is shared throughout.
-- Continuing to clean the existing database of NULL fields, broken links, and missing published dates.
+- Incorporating exception handling for request exceptions (timeout, connection refused, etc.) to avoid breaking the code and increase automation.
 
 # Weekly Update
 

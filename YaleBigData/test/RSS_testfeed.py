@@ -2,7 +2,7 @@ import feedparser
 import Newspaper_singlearticle
 
 
-feed = feedparser.parse('http://assabeel.net/feeds')
+feed = feedparser.parse('https://www.alanba.com.kw/rss/ibtissam-alawn/')
 
 print(feed.entries[0].title)
 print(feed.entries[0].link)

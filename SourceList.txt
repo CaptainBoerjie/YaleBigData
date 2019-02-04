@@ -15,7 +15,7 @@ Iraq,http://newsabah.com,RSS-Newspaper
 Jordan,http://alrai.com,RSS-Newspaper
 Jordan,http://assabeel.net,RSS-Newspaper
 
-Kuwait,http://www.alraimedia.com,RSS-Readability
+Kuwait,http://www.alraimedia.com,RSS-Newspaper
 Kuwait,http://alwatan.kuwait.tt,RSS-Newspaper
 Kuwait,https://www.alanba.com.kw,RSS-Newspaper
 Lebanon,http://assafir.com,RSS-Readability
