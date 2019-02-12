@@ -4,15 +4,25 @@ This is a Big Data project to explore two fields, data science, and Arabic media
 
 # Current Effort
 
-<b>Week of 3 Feb - 9 Feb</b>
 - Currently, working through the main sources list (SourceList.txt) to determine best scraping method.  All sources offer RSS feeds, but some require Newspaper3k (very simple), some require BeautifulSoup (source specific code), and some require Selenium and BeautifulSoup because the RSS format is broken.
 - Developing an automated Historic/Archived scraper.  Most of the sources which have iterable article URLs have a <i>sourcename</i>_singleArticleGrab.py file.  The HistoricGrabController.py module will utilize a csv file which holds the available sources with iterable URL's and a min and max numeric article id.  The id number in the URL has a '*' placeholder for easy .split() insertion of the iterated id number.
 
-Additional efforts:
+Addition efforts:
 - Learning how to use relative imports as the package file tree grows and code is shared throughout.
 - Incorporating exception handling for request exceptions (timeout, connection refused, etc.) to avoid breaking the code and increase automation.
 
 # Weekly Update
+
+## 10 February 2019
+
+- Finalized HistoricGrabController.py which handles scraping for all sources which allow for easily iterable URLs.  Historic scraping has rapidly increased the size of DB to <b>~600,000</b> articles.
+- Continued workingo on Main.py which is the controller for regular daily scraping.  The final section to add is just the Selenium-BeautifulSoup function which relies on the subcode for each of the sources.
+- Work continues on the master datetimehandler.py code to deal with the endless datetime permutations.
+
+### Issues Encountered
+
+- A single source Bahrain:Al Ayam changes the datetime format from article to article sometimes including Arabic, Islamic, and Gregorian (all in Arabic language) dates in a single date line.  Additionally, for segments of tens or hundreds of articles, the date will be badly formatted without spaces between some of the digits and numbers which complicates simple .split() operations for parsing a date.
+- Currently, Main.py has a mystery error wherein the RSS function exits before the last if/else segment thus never pushing the scraped article to the DB.  Neither the if or else segments are entered and no exception or error is thrown leading to some confusion as to the problem.
 
 ## 1 February 2019
 

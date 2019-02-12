@@ -1,11 +1,10 @@
 import feedparser
 from newspaper import Article
-from readability.readability import Document
-import requests
-import re
 import pymysql
 import datetimehandler
 from datetime import datetime
+from requests import exceptions as reqEx
+import os
 
 
 # -----------------------------------------------------------------------------
@@ -17,13 +16,21 @@ def handle_rss(source, country, cursor, feed_type):
     feeds = cursor.fetchall()
     for f in feeds:
         feed = feedparser.parse(f[1])
+        print("Feed: {} with {} articles".format(f[1],len(feed.entries)))
+        totalerrors = 0
         for item in feed.entries:
+            
+            try: 
+                raw_published = item.published
+                print("Success - Pulled date from RSS")
 
-            try: raw_published = item.published
-            except: raw_published = ''
+            except: 
+                raw_published = ''
+                totalerrors += 1
 
             article_title = item.title
             article_link = item.link
+            article_text = ''
 
             try: # Try to access the main article linked in the RSS xml data
 
@@ -34,68 +41,94 @@ def handle_rss(source, country, cursor, feed_type):
                     # toi_article.title and toi_article.text
                     article_text = article.text
                     try: article_title = article.title
-                    except: pass
-                    try: raw_published = article.published_date
-                    except: raw_published = ''
+                    except: totalerrors += 1
+                    print("Success - Pulled Newspaper")
             
-                elif feed_type == 'Readability':
-                    response = requests.get('https://www.lebanon24.com/Rss/News/1/%D9%84%D8%A8%D9%86%D8%A7%D9%86')
-                    raw_html=Document(response.text).summary()
+                elif feed_type == 'BeautifulSoup':
 
-                    cleanr = re.compile('<.*?>')
-                    cleantext = re.sub(cleanr, '', raw_html)
-                    stopterms = ['&#13;','13#&','&#13','\n','\xa0']
-                    querywords = cleantext.split()
-                    resultwords  = [word for word in querywords if word.lower() not in stopterms]
-                    article_text = ' '.join(resultwords)
+                    codelocation = "SeleniumBeautifulSoup." + entry[0] + "." +entry[1] + '_grabSingleArticle'
+                    sourceImport = __import__(codelocation, fromlist = [None])
+                    try:
+                        receivedScrape = sourceImport.grabPage(article_link) # title, date article
+                        if receivedScrape[0] is not None:
+                            article_text = receivedScrape[2]
+                        else:
+                            totalerrors += 1
 
-            #    elif feed_type is 'BeautifulSoup':
+                    except reqEx.RequestException:
+                        article_text = None
+                        totalerrors += 1
 
             except: # Main article link either broken or not present in feed
-                article_link = None
                 article_text = None
+                totalerrors += 1
 
-            publishedDate = datetimehandler.convertRSSdate(raw_published)
+            if article_link == None or article_text == None or article_title == None:
+                totalerrors += 1
+            else:
+                publishedDate = datetimehandler.convertRSSdate(raw_published)
+                updated_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                print("Published: ", publishedDate)
+                print("Current Time: ", updated_time)
+                print("Last update: ", f[4])
 
-            params = (f[0],source, country, publishedDate, article_title, article_text, article_link)
-            sql_insert = """INSERT IGNORE INTO news (news_feed, news_source, news_country, news_date, \
-            news_title, news_text, news_link) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-            cursor.execute(sql_insert,params)
+                if f[4] < publishedDate:
+                    print("Writing article to DB")
+                    cursor.execute("UPDATE feeds SET fee_updated = %s WHERE fee_id = %s;",(updated_time,f[0]))
+                    params = (f[0],source, country, publishedDate, article_title, article_text, article_link)
+                    sql_insert = """INSERT IGNORE INTO news (news_feed, news_source, news_country, news_date, \
+                    news_title, news_text, news_link) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+                    cursor.execute(sql_insert,params)
+                    print("Executed article push to DB")
 
+                else: 
+                    print("Article older than last update (won't push to DB)")
+
+        print("Total errors in feed: {}\n".format(totalerrors))
 
 # -----------------------------------------------------------------------------
 # ---------------------------------SELENIUM - BS - HANDLER --------------------
 # -----------------------------------------------------------------------------    
 
-#def handle_SelBS(source, country, cursor):
-    # do stuff
+def handle_SelBS(source, country, cursor):
+    pass
 
 # -----------------------------------------------------------------------------
 # ---------------------------------MAIN CODE-----------------------------------
 # -----------------------------------------------------------------------------
+
 start_time = datetime.now()
 
 db = pymysql.connect("localhost","root","pumpkin","ScrapeDB")
 cursor = db.cursor()
 
-cursor.execute("SELECT * FROM sources WHERE sou_type LIKE %s;",("%RSS%"))
+cursor.execute("SELECT * FROM sources WHERE sou_type LIKE %s AND sou_country = 'Tunisia' LIMIT 2;",("%RSS%"))
 sources = cursor.fetchall()
 
 for source in sources: # id, source, country, updated, feeds, type, logo, link
-    if source[5][0:3] == 'RSS':
-        handle_rss(source[1],source[2],cursor,source[5][4:])
+    try:
+        #os.system('clear')
+        print("{} : {}".format(source[2],source[1]))
+        print("Feeds: {} | Type: {}".format(source[4],source[5]))
+
+        if source[5][0:3] == 'RSS':
+            handle_rss(source[1],source[2],cursor,source[5][4:])
+            db.commit()
+            
+        elif source[5] == 'Selenium-BeautifulSoup':
+            handle_SelBS(source[2],source[1],cursor)
+
+    except:
+        pass
+
+    finally:
+        today = datetime.now()
+        updated_time = today.strftime('%Y-%m-%d %H:%M:%S')
+        cursor.execute("UPDATE sources SET sou_updated = %s WHERE sou_id = %s;",(updated_time,source[0]))
         db.commit()
-        
-    elif source[5] == 'Selenium-BeautifulSoup':
-        handle_SelBS(source[2],source[1],cursor)
+        print("Committed updates to DB")
+        print("---Total running time: ", (str(datetime.now() - start_time)))
 
-    else:
-        print("error reading for db:sources")
-
-    today = datetime.now()
-    updated_time = today.strftime('%Y-%m-%d %H:%M:%S')
-    cursor.execute("UPDATE sources SET sou_updated = %s WHERE sou_id = %s;",(updated_time,source[0]))
-    db.commit()
 
 db.close()
-print("\nRuntime: %s seconds" % (str(datetime.now() - start_time)))
+print("\nFinal Runtime: %s seconds" % (str(datetime.now() - start_time)))

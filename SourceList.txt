@@ -6,7 +6,7 @@ Bahrain,http://www.alwasatnews.com,RSS-Newspaper
 Bahrain,http://alwatannews.net,RSS-Newspaper
 Egypt,https://alwafd.news,Selenium-BeautifulSoup(RSS+Newspaper works)
 Egypt,https://www.almasryalyoum.com,RSS-BeautifulSoup
-Egypt,http://www.khabarmasr.com,Selenium-BeautifulSoup
+Egypt,http://www.khabarmasr.com,Selenium-BeautifulSoup (RSS+Newspaper works)
 Egypt,https://www.masrawy.com,RSS-BeautifulSoup
 Egypt,https://www.egypt-today.com,RSS-Newspaper
 Iraq,https://www.azzaman.com,RSS-Newspaper
@@ -14,10 +14,10 @@ Iraq,https://almadapaper.net,RSS-BeautifulSoup
 Iraq,http://newsabah.com,RSS-Newspaper
 Jordan,http://alrai.com,RSS-Newspaper
 Jordan,http://assabeel.net,RSS-Newspaper
-
 Kuwait,http://www.alraimedia.com,RSS-Newspaper
 Kuwait,http://alwatan.kuwait.tt,RSS-Newspaper
 Kuwait,https://www.alanba.com.kw,RSS-Newspaper
+
 Lebanon,http://assafir.com,RSS-Readability
 Lebanon,http://www.al-waie.org/headlines,Newspaper (only)
 Lebanon,https://www.lebanon24.com,RSS-Newspaper

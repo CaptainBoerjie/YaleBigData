@@ -61,14 +61,14 @@ def convertBSdate(published,*args):
         'الاحد':'Sunday','الأحد':'Sunday'}
 
     ar2eng_month = {'يناير':'January','فبراير':'February',
-        'مارس':'March','إبريل':'April','أبريل':'April',
+        'مارس':'March','إبريل':'April','أبريل':'April','ابريل':'April',
         'مايو':'May','يونيو':'June',
-        'يوليو':'July','أغسطس':'August',
+        'يوليو':'July','أغسطس':'August','اغسطس':'August',
         'سبتمبر':'September','أكتوبر':'October',
         'نوفمبر':'November','ديسمبر':'December',
         ' كانون الثاني':'January','شباط':'February',
         'آذار':'March','نيسان':'April',
-        'أيار':'May','حزيران':'June',
+        'أيار':'May','ايار':'May','حزيران':'June',
         'تموز':'July','آب':'August',
         'أيلول':'September','تشرين الأول':'October',
         ' تشرين الثاني':'November',' كانون الأول':'December'}
@@ -87,7 +87,8 @@ if __name__ == '__main__':
 
     test_list = ['1 يناير 2015', 'قبل ساعتين', 'منذ 5 ساعات', 
         'Fri, 5 Jun 2015 02:14:05 GMT', 'Sat, 26 Jan 2019 12:04:06 +0000',
-        'الثلاثاء, 20 آب أغسطس 2013 م ','السبت - 2019-02-02-']
-
+        'الثلاثاء, 20 آب أغسطس 2013 م ','السبت - 2019-02-02-',
+        '2011-08-12T19:49:56+03:00','13 اغسطس 2011','13 ابريل 2013']
+        
     for i in test_list:
         print(i, " ----- ",convertRSSdate(i))

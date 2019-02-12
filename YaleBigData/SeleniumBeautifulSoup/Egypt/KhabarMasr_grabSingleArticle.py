@@ -1,5 +1,5 @@
-# Egypt - Al Wafd
-# https://alwafd.news 
+# Egypt - Khabar Masr
+# https://www.khabarmasr.com
 
 # This code uses BeautifulSoup to grab the title, article date, and article text from
 # a single article
@@ -27,7 +27,7 @@ def grabPage(url):
 
 if __name__ == "__main__":
 
-page = 'http://www.khabarmasr.com/news/get_news/2486217/'
+    page = 'http://www.khabarmasr.com/news/get_news/2486217/'
     output = grabPage(page)
     for o in range (0,len(output)):
         print(output[o])
