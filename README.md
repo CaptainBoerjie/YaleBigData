@@ -11,11 +11,13 @@ Addition efforts:
 - Learning how to use relative imports as the package file tree grows and code is shared throughout.
 - Incorporating exception handling for request exceptions (timeout, connection refused, etc.) to avoid breaking the code and increase automation.
 
+- In the next two weeks, work will begin on incorporating a robust sentiment analysis tool.  The best Arabic language tool implemented in Python is https://github.com/iamaziz/ar-embeddings .  The code works and is able to handle large datasets.
+
 # Weekly Update
 
 ## 17 February 2019
 
-- Current article count around 1.4 million.  Between daily update scrapes and ongoing historic scraping, the database adds 200-250 thousand a day.
+- Current article count around <b>1.4 million</b>.  Between daily update scrapes and ongoing historic scraping, the database adds 200-250 thousand a day.
 - Began building out the basic web framework with Flask.  The current code just displays the most recent database statistics.
 - The statistics are gathered using PeriodicStatistics.py which outputs to PeriodicStatistics.csv
 - Finally, tested code for scraping historic articles using multiprocessing.  There is a new database table which holds all the easily iterable news sources (~60).  Up till now, each source has been processed separated and entirely before moving to the next.  This is not a good method because some sources take several days (hundreds of thousands of historic articles) which will make for misleading results when analysis testing begins and several sources' historic articles are not yet scraped.  With the multiprocessing code, tranches of sources will spin up separate asynchronous processes to scrape 500-1000 articles each before ending and starting the next process.  This method will ensure a gradual scraping of all historic articles across a wide array of sources and is extendable as new sources are added.
