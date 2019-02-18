@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Yale Big Data - Arabic News Media</title>
+    </head>
+    <body>
+        <h1>Current Database Statistics</h1>
+        <p>
+        The date today is {{today}}<br>
+
+        The formatting is fairly basic, but readable.
+
+        And now, here's a <i>bunch</i> of data:
+        </p>
+        {% for row in statistics %}
+
+        <div><p>{{row}}</p></div>
+
+        {% endfor %}
+    </body>
+</html>

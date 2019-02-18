@@ -7,7 +7,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-def grab(url):
+def grabPage(url):
     url = 'https://www.elkhabar.com/press/article/149718/'
 
     page = requests.get(url)

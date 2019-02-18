@@ -30,5 +30,5 @@ def test_newspaper(url):
     #print(toi_article.keywords) 
 
 if __name__ == "__main__":
-    url = 'http://www.akhbarlibya.net/libya-news/10000.html'
+    url = 'http://wam.ae/ar/details/1395302739836'
     test_newspaper(url)

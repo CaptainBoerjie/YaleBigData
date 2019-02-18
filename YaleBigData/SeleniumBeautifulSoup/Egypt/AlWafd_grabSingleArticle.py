@@ -16,11 +16,15 @@ def grabPage(url):
     date_box = soup.find('span', attrs={'class': 'date date-time rtl'})
     article_box = soup.find('div', attrs={'class': 'details'})
 
-    title = title_box.text.strip()
-    date = date_box.text.strip()
-    article = article_box.text.strip()
+    try:
+        title = title_box.text.strip()
+        date = date_box.text.strip()
+        article = article_box.text.strip()
 
-    return [title,date,article]
+        return [title,date,article]
+
+    except AttributeError as e:
+        return([None,None,None])
 
 if __name__ == "__main__":
 

@@ -14,15 +14,22 @@ import os
 def handle_rss(source, country, cursor, feed_type):
     cursor.execute("SELECT * FROM feeds WHERE fee_country=%s AND fee_source=%s;", (country,source))
     feeds = cursor.fetchall()
+    sourceArticles = 0
     for f in feeds:
         feed = feedparser.parse(f[1])
         print("Feed: {} with {} articles".format(f[1],len(feed.entries)))
         totalerrors = 0
         for item in feed.entries:
             
-            try: 
-                raw_published = item.published
-                print("Success - Pulled date from RSS")
+            try:
+                try:
+                    raw_published = item.published
+                except:
+                    raw_published = item.updated
+                publishedDate = datetimehandler.convertRSSdate(raw_published)
+                updated_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                lastupdate = f[4]
+                lastupdate = lastupdate.strftime('%Y-%m-%d %H:%M:%S')
 
             except: 
                 raw_published = ''
@@ -42,7 +49,6 @@ def handle_rss(source, country, cursor, feed_type):
                     article_text = article.text
                     try: article_title = article.title
                     except: totalerrors += 1
-                    print("Success - Pulled Newspaper")
             
                 elif feed_type == 'BeautifulSoup':
 
@@ -52,6 +58,11 @@ def handle_rss(source, country, cursor, feed_type):
                         receivedScrape = sourceImport.grabPage(article_link) # title, date article
                         if receivedScrape[0] is not None:
                             article_text = receivedScrape[2]
+                            if publishedDate == '':
+                                try:
+                                    publishedDate = datetimehandler.convertRSSdate(receivedScrape[1])
+                                except:
+                                    print("--ERROR no RSS date and no BS date--")
                         else:
                             totalerrors += 1
 
@@ -65,26 +76,18 @@ def handle_rss(source, country, cursor, feed_type):
 
             if article_link == None or article_text == None or article_title == None:
                 totalerrors += 1
-            else:
-                publishedDate = datetimehandler.convertRSSdate(raw_published)
-                updated_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                print("Published: ", publishedDate)
-                print("Current Time: ", updated_time)
-                print("Last update: ", f[4])
+            elif lastupdate < publishedDate:
+                cursor.execute("UPDATE feeds SET fee_updated = %s WHERE fee_id = %s;",(updated_time,f[0]))
+                params = (f[1],source, country, publishedDate, article_title, article_text, article_link)
+                sql_insert = """INSERT IGNORE INTO news (news_feed, news_source, news_country, news_date, \
+                news_title, news_text, news_link) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+                cursor.execute(sql_insert,params)
+                sourceArticles += 1
+            else: 
+                pass
 
-                if f[4] < publishedDate:
-                    print("Writing article to DB")
-                    cursor.execute("UPDATE feeds SET fee_updated = %s WHERE fee_id = %s;",(updated_time,f[0]))
-                    params = (f[0],source, country, publishedDate, article_title, article_text, article_link)
-                    sql_insert = """INSERT IGNORE INTO news (news_feed, news_source, news_country, news_date, \
-                    news_title, news_text, news_link) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-                    cursor.execute(sql_insert,params)
-                    print("Executed article push to DB")
-
-                else: 
-                    print("Article older than last update (won't push to DB)")
-
-        print("Total errors in feed: {}\n".format(totalerrors))
+    print("Total errors in source ({}): {}".format(source,totalerrors))
+    print("Total articles added for {} | {}: {}".format(country,source,sourceArticles))
 
 # -----------------------------------------------------------------------------
 # ---------------------------------SELENIUM - BS - HANDLER --------------------
@@ -102,7 +105,7 @@ start_time = datetime.now()
 db = pymysql.connect("localhost","root","pumpkin","ScrapeDB")
 cursor = db.cursor()
 
-cursor.execute("SELECT * FROM sources WHERE sou_type LIKE %s AND sou_country = 'Tunisia' LIMIT 2;",("%RSS%"))
+cursor.execute("SELECT * FROM sources;")
 sources = cursor.fetchall()
 
 for source in sources: # id, source, country, updated, feeds, type, logo, link
@@ -126,8 +129,7 @@ for source in sources: # id, source, country, updated, feeds, type, logo, link
         updated_time = today.strftime('%Y-%m-%d %H:%M:%S')
         cursor.execute("UPDATE sources SET sou_updated = %s WHERE sou_id = %s;",(updated_time,source[0]))
         db.commit()
-        print("Committed updates to DB")
-        print("---Total running time: ", (str(datetime.now() - start_time)))
+        print("---Total running time: {}\n".format(str(datetime.now() - start_time)))
 
 
 db.close()

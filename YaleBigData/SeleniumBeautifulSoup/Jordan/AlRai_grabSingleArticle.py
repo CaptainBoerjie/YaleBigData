@@ -16,13 +16,17 @@ def grabPage(url):
     date_box = soup.find('div', attrs={'class': 'col-md-8'}).find('div', attrs={'class': 'schedule-i'})
     article_box = soup.find('div', attrs={'class': 'articleBody'})
 
-    title = title_box.text.strip()
-    date = date_box.text.strip()
-    article = article_box.text.strip()
+    try:
+        title = title_box.text.strip()
+        date = date_box.text.strip()
+        article = article_box.text.strip()
 
-    date = ' '.join(date.split()[i] for i in range(2,5))
+        date = ' '.join(date.split()[i] for i in range(2,5))
 
-    return [title,date,article]
+        return [title,date,article]
+
+    except AttributeError as e:
+        return([None,None,None])
 
 if __name__ == "__main__":
 

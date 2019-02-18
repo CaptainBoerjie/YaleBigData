@@ -64,7 +64,7 @@ def convertBSdate(published,*args):
         'مارس':'March','إبريل':'April','أبريل':'April','ابريل':'April',
         'مايو':'May','يونيو':'June',
         'يوليو':'July','أغسطس':'August','اغسطس':'August',
-        'سبتمبر':'September','أكتوبر':'October',
+        'سبتمبر':'September','أكتوبر':'October','اكتوبر':'October',
         'نوفمبر':'November','ديسمبر':'December',
         ' كانون الثاني':'January','شباط':'February',
         'آذار':'March','نيسان':'April',

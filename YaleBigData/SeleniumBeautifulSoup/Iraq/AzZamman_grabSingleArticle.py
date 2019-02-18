@@ -1,5 +1,5 @@
-# Egypt - Al Wafd
-# https://alwafd.news 
+# Iraq - Az Zamman
+# https:// 
 
 # This code uses BeautifulSoup to grab the title, article date, and article text from
 # a single article
@@ -16,13 +16,17 @@ def grabPage(url):
     date_box = soup.find('time', attrs={'class': 'entry-date'})
     article_box = soup.find('div', attrs={'class': 'td-post-content'}).find_all('p', attrs={'style': 'direction: rtl;'})
 
-    title = title_box.text.strip()
-    date = date_box.text.strip()
-    article = ''
-    for a in article_box:
-        article += a.text.strip()
+    try:
+        title = title_box.text.strip()
+        date = date_box.text.strip()
+        article = ''
+        for a in article_box:
+            article += a.text.strip()
 
-    return [title,date,article]
+        return [title,date,article]
+
+    except AttributeError as e:
+        return([None,None,None])
 
 if __name__ == "__main__":
 

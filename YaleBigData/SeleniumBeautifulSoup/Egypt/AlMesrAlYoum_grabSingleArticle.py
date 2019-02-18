@@ -7,7 +7,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-def grab(url):
+def grabPage(url):
 
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'lxml')
@@ -16,13 +16,17 @@ def grab(url):
     date_box = soup.find('div', attrs={'class': 'pinfo'}).find('span')
     article_box_group = soup.find('div', attrs={'id': 'NewsStory'}).find_all('p')
 
-    title = title_box.text.strip()
-    date = date_box.text.strip()
-    article = ''
-    for p in article_box_group:
-        article += p.text.strip()
+    try:
+        title = title_box.text.strip()
+        date = date_box.text.strip()
+        article = ''
+        for p in article_box_group:
+            article += p.text.strip()
 
-    return [title,date,article]
+        return [title,date,article]
+
+    except AttributeError as e:
+        return([None,None,None])
     
 if __name__ == "__main__":
 
